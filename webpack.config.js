@@ -8,7 +8,7 @@ module.exports = {
   mode: isProd ? "production" : "development",
   devtool: "source-map",
   entry: {
-    application: path.resolve(__dirname, "app/javascript/application.js"),
+    application: path.resolve(__dirname, "app/javascript/application.tsx"),
   },
   output: {
     path: path.resolve(__dirname, "public/packs"),
@@ -16,7 +16,18 @@ module.exports = {
     filename: isProd ? "[name]-[hash].js" : "[name].js",
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".js", ".ts", ".jsx", ".tsx"],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
   },
   plugins: [
     new WebpackAssetsManifest({
