@@ -35,3 +35,7 @@
 vendor
 
 .idea
+
+/public/packs
+
+node_modules
