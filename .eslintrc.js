@@ -7,6 +7,9 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   settings: {
     react: {
