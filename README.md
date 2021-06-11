@@ -20,6 +20,8 @@ $ bundle exec rails s
 
 ## Simpacker Installation
 
+https://github.com/hokaccha/simpacker
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -46,6 +48,8 @@ $ ./node_modules/.bin/webpack --watch
 ```
 
 ## React(Typescript) Installation
+
+https://github.com/hokaccha/simpacker/tree/master/example/react-typescript
 
 ```
 $ npm install --save react react-dom
