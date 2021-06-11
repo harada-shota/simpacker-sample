@@ -1,5 +1,5 @@
-const path = require("path");
-const WebpackAssetsManifest = require("webpack-assets-manifest");
+const path = require("path"); // eslint-disable-line
+const WebpackAssetsManifest = require("webpack-assets-manifest"); // eslint-disable-line
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
