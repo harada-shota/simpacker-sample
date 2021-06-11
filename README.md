@@ -158,6 +158,7 @@ module.exports = {
     node: true,
     browser: true,
   },
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
   },
@@ -180,7 +181,6 @@ module.exports = {
     "react/prop-types": "off",
   },
 };
-
 ```
 
 ### .prettierrc.js

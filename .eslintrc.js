@@ -4,6 +4,7 @@ module.exports = {
     node: true,
     browser: true,
   },
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
   },
