@@ -1,26 +1,186 @@
-# README
+# Simpacker Sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project with using 'Ruby on Rails', Simpacker, React(Typescript), eslint, prettier.
 
-Things you may want to cover:
+## Create Project
 
-* Ruby version
+```
+$ mkdir simpacker-sample
+$ bundle init
+$ vim Gemfile → railsのコメントアウト外す
+$ bundle install --path vendor/bundle
+$ bundle exec rails new . --skip-javascript
+```
 
-* System dependencies
+## Serve
 
-* Configuration
+```
+$ bundle exec rails s
+```
 
-* Database creation
+## Simpacker Installation
 
-* Database initialization
+Add this line to your application's Gemfile:
 
-* How to run the test suite
+```ruby
+gem 'simpacker'
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the following to install Simpacker:
 
-* Deployment instructions
+```
+$ bundle install
+$ bundle exec rails simpacker:install
+```
 
-* ...
+Add `javascript_pack_tag` in view.
 
+```
+<%= javascript_pack_tag 'application' %>
+```
 
+Run the folloing command to build JavaScript.
+
+```
+$ ./node_modules/.bin/webpack --watch
+```
+
+## React(Typescript) Installation
+
+```
+$ npm install --save react react-dom
+$ npm install --save-dev typescript ts-loader @types/react @types/react-dom
+```
+
+## Edit webpack config
+
+```diff
+   entry: {
+-    application: path.resolve(__dirname, "app/javascript/application.tsx")
++    application: path.resolve(__dirname, "app/javascript/application.tsx")
+   },
+   output: {
+     path: path.resolve(__dirname, "public/packs"),
+@@ -16,7 +16,18 @@
+     filename: isProd ? "[name]-[hash].js" : "[name].js"
+   },
+   resolve: {
+-    extensions: [".js"]
++    extensions: [".js", ".ts", ".jsx", ".tsx"]
++  },
++  module: {
++    rules: [
++      {
++        test: /\.tsx?$/,
++        loader: "ts-loader",
++        options: {
++          transpileOnly: true
++        }
++      }
++    ]
+   },
+   plugins: [
+ };
+```
+
+## Add files
+
+### tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2019", "dom", "dom.iterable"],
+    "module": "es2015",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true
+  }
+}
+```
+
+### app/javascript/application.tsx
+
+```typescript
+import React from "react";
+import ReactDOM from "react-dom";
+import { Hello } from "./greeter";
+
+document.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.render(<Hello name="Rails" />, document.getElementById("app"));
+});
+```
+
+### app/javascript/greeter.tsx
+
+```typescript
+import React, { FC } from "react";
+
+interface Props {
+  name: string;
+}
+
+export const Hello: FC<Props> = ({ name }) => {
+  return <div>Hello {name}!</div>;
+};
+```
+
+## ESLint and Prettier Installation
+
+```
+$ npm i -D eslint prettier eslint-config-prettier
+$ npm i -D @typescript-eslint/{parser,eslint-plugin}
+$ npm i -D eslint-plugin-{react,react-hooks}
+```
+
+## Add files
+
+### .eslintrc.js
+
+```javascript
+module.exports = {
+  root: true,
+  env: {
+    node: true,
+    browser: true,
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+  plugins: ["react-hooks", "react", "@typescript-eslint"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier",
+  ],
+  ignorePatterns: ["/vendor", "/public"],
+  rules: {
+    "react/prop-types": "off",
+  },
+};
+
+```
+
+### .prettierrc.js
+
+```javascript
+module.exports = {};
+```
