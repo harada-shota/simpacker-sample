@@ -60,7 +60,7 @@ $ npm install --save-dev typescript ts-loader @types/react @types/react-dom
 
 ```diff
    entry: {
--    application: path.resolve(__dirname, "app/javascript/application.tsx")
+-    application: path.resolve(__dirname, "app/javascript/application.js")
 +    application: path.resolve(__dirname, "app/javascript/application.tsx")
    },
    output: {
