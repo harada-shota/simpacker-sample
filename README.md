@@ -191,3 +191,24 @@ module.exports = {
 ```javascript
 module.exports = {};
 ```
+
+## Edit .gitignore and package.json
+
+### .gitignore
+```
+/public/packs
+
+node_modules
+```
+
+### package.json
+```
+  "scripts": {
+    "lint": "npm run eslint:check && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "eslint:check": "eslint .",
+    "eslint:fix": "eslint . --fix",
+    "prettier:check": "prettier --check --ignore-path .gitignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore ."
+  },
+```
